@@ -97,12 +97,12 @@ OpenSSH                    ALLOW       Anywhere
 步骤 2：使用 SSH 客户端连接到服务器
 在您的本地计算机上打开终端，并执行以下命令来连接到您的 Ubuntu 服务器：
 
-``` ssh username@server_ip_address ```
+``` ssh username@server_ip_address ```  
 在这个命令中，将 username 替换为您在服务器上的用户名，server_ip_address 替换为您在步骤 1 中找到的服务器 IP 地址。
 
 例如，如果您的用户名是 user，服务器的 IP 地址是 192.168.1.100，则命令如下：
 
-``` ssh user@192.168.1.100 ```
+``` ssh user@192.168.1.100 ```  
 步骤 3：输入密码（如果需要）
 如果这是您第一次连接到服务器，系统可能会要求您输入密码。输入您的密码并按下 Enter 键。
 
@@ -118,5 +118,5 @@ Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64)
  * Management:     https://landscape.canonical.com
  * Support:        https://ubuntu.com/advantage '''  
 
-```
+```  
 这意味着您已经成功通过 SSH 连接到您的 Ubuntu 服务器。
