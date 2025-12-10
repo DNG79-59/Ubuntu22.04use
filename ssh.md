@@ -4,7 +4,7 @@
 步骤 1：更新软件包列表
 在安装任何软件之前，最好先更新一下系统的软件包列表，以确保安装的软件是最新的版本。打开终端，执行以下命令：
 
-''' sudo apt update '''  
+``` sudo apt update ```  
 步骤 2：安装 OpenSSH 服务器
 在 Ubuntu 中，OpenSSH 是最常见的 SSH 服务器实现。您可以使用以下命令安装 OpenSSH 服务器：
 
@@ -17,7 +17,7 @@
 ''' sudo systemctl status ssh '''  
 如果 SSH 服务器正在运行，您将看到类似如下的输出：
 
-'''ssh
+```ssh
 ● ssh.service - OpenBSD Secure Shell server
      Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
      Active: active (running) since Sat 2022-04-09 14:30:00 UTC; 1min 30s ago
@@ -35,7 +35,7 @@ Apr 09 14:30:00 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on 0.0.0.0 port 22.
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on :: port 22.
 Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
-'''  
+```  
 您可以看到 Active: active (running)，表示 SSH 服务器正在运行。
 
 
