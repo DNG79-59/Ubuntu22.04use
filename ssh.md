@@ -8,13 +8,13 @@
 步骤 2：安装 OpenSSH 服务器
 在 Ubuntu 中，OpenSSH 是最常见的 SSH 服务器实现。您可以使用以下命令安装 OpenSSH 服务器：
 
-''' sudo apt install openssh-server'''  
+``` sudo apt install openssh-server```  
 系统会提示您输入密码以确认安装，输入密码后按下 Enter 键继续。
 
 步骤 3：检查 SSH 服务器状态
 安装完成后，SSH 服务器会自动启动。您可以使用以下命令检查 SSH 服务器的状态：
 
-''' sudo systemctl status ssh '''  
+``` sudo systemctl status ssh ```  
 如果 SSH 服务器正在运行，您将看到类似如下的输出：
 
 ```ssh
@@ -49,36 +49,40 @@ Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
 步骤 1：检查防火墙状态
 首先，您需要检查系统上的防火墙是否已启用，并了解其当前配置。在终端中执行以下命令：
 
-''' sudo ufw status '''  
+``` sudo ufw status ```  
 如果防火墙已经启用，您会看到类似以下的输出：
 
-''' Status: active
+```ssh
+Status: active
 
 To                         Action      From
 --                         ------      ----
-OpenSSH                    ALLOW       Anywhere '''  
+OpenSSH                    ALLOW       Anywhere
+```
 如果防火墙尚未启用，您会看到输出 Status: inactive，表明防火墙当前处于禁用状态。
 
 步骤 2：允许 SSH 通过防火墙
 如果防火墙已启用但未允许 SSH 通过，则需要执行以下命令来添加 SSH 规则：
 
-''' sudo ufw allow OpenSSH '''  
+``` sudo ufw allow OpenSSH ```  
 这将在防火墙规则中添加一个允许 SSH 服务通过的条目。
 
 步骤 3：启用防火墙（如果尚未启用）
 如果防火墙尚未启用，您需要执行以下命令来启用防火墙：
 
-''' sudo ufw enable '''  
+``` sudo ufw enable ```  
 您将收到一个提示，询问是否继续启用防火墙。输入 y 并按下 Enter 键继续。
 
 步骤 4：验证防火墙规则
 最后，您可以再次运行 sudo ufw status 命令来验证 SSH 是否已成功添加到防火墙规则中。如果一切正常，您应该会看到类似以下的输出：
 
-''' Status: active
+```ssh
+Status: active
 
 To                         Action      From
 --                         ------      ----
-OpenSSH                    ALLOW       Anywhere '''  
+OpenSSH                    ALLOW       Anywhere
+```  
 这表示防火墙已成功配置为允许 SSH 服务通过。
 
 测试 SSH 连接
@@ -87,18 +91,18 @@ OpenSSH                    ALLOW       Anywhere '''
 步骤 1：获取服务器 IP 地址
 首先，您需要获取您的 Ubuntu 服务器的 IP 地址。您可以在终端中运行以下命令来查看：
 
-''' ip addr show | grep inet '''  
+``` ip addr show | grep inet ```  
 这将列出所有网络接口的 IP 地址。找到您的服务器的 IP 地址并记下来。
 
 步骤 2：使用 SSH 客户端连接到服务器
 在您的本地计算机上打开终端，并执行以下命令来连接到您的 Ubuntu 服务器：
 
-ssh username@server_ip_address
+``` ssh username@server_ip_address ```
 在这个命令中，将 username 替换为您在服务器上的用户名，server_ip_address 替换为您在步骤 1 中找到的服务器 IP 地址。
 
 例如，如果您的用户名是 user，服务器的 IP 地址是 192.168.1.100，则命令如下：
 
-ssh user@192.168.1.100
+``` ssh user@192.168.1.100 ```
 步骤 3：输入密码（如果需要）
 如果这是您第一次连接到服务器，系统可能会要求您输入密码。输入您的密码并按下 Enter 键。
 
@@ -107,11 +111,12 @@ ssh user@192.168.1.100
 步骤 4：验证连接
 如果一切正常，您应该会看到类似以下的输出，表示您已成功连接到服务器：
 
-''' Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64) '''  
+```ssh
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64) 
 
-'''  * Documentation:  https://help.ubuntu.com
+ * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
  * Support:        https://ubuntu.com/advantage '''  
 
-...
+```
 这意味着您已经成功通过 SSH 连接到您的 Ubuntu 服务器。
