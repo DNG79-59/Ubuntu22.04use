@@ -17,7 +17,7 @@
 ''' sudo systemctl status ssh '''  
 如果 SSH 服务器正在运行，您将看到类似如下的输出：
 
-● ssh.service - OpenBSD Secure Shell server
+''' ● ssh.service - OpenBSD Secure Shell server
      Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
      Active: active (running) since Sat 2022-04-09 14:30:00 UTC; 1min 30s ago
        Docs: man:sshd(8)
@@ -33,7 +33,7 @@
 Apr 09 14:30:00 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on 0.0.0.0 port 22.
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on :: port 22.
-Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
+Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server. '''  
 您可以看到 Active: active (running)，表示 SSH 服务器正在运行。
 
 
@@ -50,11 +50,11 @@ Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
 ''' sudo ufw status '''  
 如果防火墙已经启用，您会看到类似以下的输出：
 
-Status: active
+''' Status: active
 
 To                         Action      From
 --                         ------      ----
-OpenSSH                    ALLOW       Anywhere
+OpenSSH                    ALLOW       Anywhere '''  
 如果防火墙尚未启用，您会看到输出 Status: inactive，表明防火墙当前处于禁用状态。
 
 步骤 2：允许 SSH 通过防火墙
@@ -72,11 +72,11 @@ OpenSSH                    ALLOW       Anywhere
 步骤 4：验证防火墙规则
 最后，您可以再次运行 sudo ufw status 命令来验证 SSH 是否已成功添加到防火墙规则中。如果一切正常，您应该会看到类似以下的输出：
 
-Status: active
+''' Status: active
 
 To                         Action      From
 --                         ------      ----
-OpenSSH                    ALLOW       Anywhere
+OpenSSH                    ALLOW       Anywhere '''  
 这表示防火墙已成功配置为允许 SSH 服务通过。
 
 测试 SSH 连接
@@ -105,11 +105,11 @@ ssh user@192.168.1.100
 步骤 4：验证连接
 如果一切正常，您应该会看到类似以下的输出，表示您已成功连接到服务器：
 
-Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64)
+''' Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
+ * Support:        https://ubuntu.com/advantage '''  
 
 ...
 这意味着您已经成功通过 SSH 连接到您的 Ubuntu 服务器。
