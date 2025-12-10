@@ -4,7 +4,7 @@
 步骤 1：更新软件包列表
 在安装任何软件之前，最好先更新一下系统的软件包列表，以确保安装的软件是最新的版本。打开终端，执行以下命令：
 
-'''sudo apt update'''
+''' sudo apt update '''  
 步骤 2：安装 OpenSSH 服务器
 在 Ubuntu 中，OpenSSH 是最常见的 SSH 服务器实现。您可以使用以下命令安装 OpenSSH 服务器：
 
