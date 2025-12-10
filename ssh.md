@@ -28,9 +28,9 @@
      Memory: 2.2M
         CPU: 50ms
      CGroup: /system.slice/ssh.service
-             └─12346 /usr/sbin/sshd -D
+             └─12346 /usr/sbin/sshd -D '''  
 
-Apr 09 14:30:00 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
+''' Apr 09 14:30:00 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on 0.0.0.0 port 22.
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on :: port 22.
 Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server. '''  
@@ -105,9 +105,9 @@ ssh user@192.168.1.100
 步骤 4：验证连接
 如果一切正常，您应该会看到类似以下的输出，表示您已成功连接到服务器：
 
-''' Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64)
+''' Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64) '''  
 
- * Documentation:  https://help.ubuntu.com
+'''  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
  * Support:        https://ubuntu.com/advantage '''  
 
