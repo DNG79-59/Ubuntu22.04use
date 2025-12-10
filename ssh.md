@@ -8,13 +8,13 @@
 步骤 2：安装 OpenSSH 服务器
 在 Ubuntu 中，OpenSSH 是最常见的 SSH 服务器实现。您可以使用以下命令安装 OpenSSH 服务器：
 
-sudo apt install openssh-server
+''' sudo apt install openssh-server'''  
 系统会提示您输入密码以确认安装，输入密码后按下 Enter 键继续。
 
 步骤 3：检查 SSH 服务器状态
 安装完成后，SSH 服务器会自动启动。您可以使用以下命令检查 SSH 服务器的状态：
 
-sudo systemctl status ssh
+''' sudo systemctl status ssh '''  
 如果 SSH 服务器正在运行，您将看到类似如下的输出：
 
 ● ssh.service - OpenBSD Secure Shell server
@@ -47,7 +47,7 @@ Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
 步骤 1：检查防火墙状态
 首先，您需要检查系统上的防火墙是否已启用，并了解其当前配置。在终端中执行以下命令：
 
-sudo ufw status
+''' sudo ufw status '''  
 如果防火墙已经启用，您会看到类似以下的输出：
 
 Status: active
@@ -60,13 +60,13 @@ OpenSSH                    ALLOW       Anywhere
 步骤 2：允许 SSH 通过防火墙
 如果防火墙已启用但未允许 SSH 通过，则需要执行以下命令来添加 SSH 规则：
 
-sudo ufw allow OpenSSH
+''' sudo ufw allow OpenSSH '''  
 这将在防火墙规则中添加一个允许 SSH 服务通过的条目。
 
 步骤 3：启用防火墙（如果尚未启用）
 如果防火墙尚未启用，您需要执行以下命令来启用防火墙：
 
-sudo ufw enable
+''' sudo ufw enable '''  
 您将收到一个提示，询问是否继续启用防火墙。输入 y 并按下 Enter 键继续。
 
 步骤 4：验证防火墙规则
@@ -85,7 +85,7 @@ OpenSSH                    ALLOW       Anywhere
 步骤 1：获取服务器 IP 地址
 首先，您需要获取您的 Ubuntu 服务器的 IP 地址。您可以在终端中运行以下命令来查看：
 
-ip addr show | grep inet
+''' ip addr show | grep inet '''  
 这将列出所有网络接口的 IP 地址。找到您的服务器的 IP 地址并记下来。
 
 步骤 2：使用 SSH 客户端连接到服务器
