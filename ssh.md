@@ -17,7 +17,8 @@
 ''' sudo systemctl status ssh '''  
 如果 SSH 服务器正在运行，您将看到类似如下的输出：
 
-''' ● ssh.service - OpenBSD Secure Shell server
+'''ssh
+● ssh.service - OpenBSD Secure Shell server
      Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
      Active: active (running) since Sat 2022-04-09 14:30:00 UTC; 1min 30s ago
        Docs: man:sshd(8)
@@ -28,12 +29,13 @@
      Memory: 2.2M
         CPU: 50ms
      CGroup: /system.slice/ssh.service
-             └─12346 /usr/sbin/sshd -D '''  
+             └─12346 /usr/sbin/sshd -D
 
-''' Apr 09 14:30:00 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
+Apr 09 14:30:00 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on 0.0.0.0 port 22.
 Apr 09 14:30:00 ubuntu sshd[12346]: Server listening on :: port 22.
-Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server. '''  
+Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
+'''  
 您可以看到 Active: active (running)，表示 SSH 服务器正在运行。
 
 
