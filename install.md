@@ -8,6 +8,13 @@
 
 rpm需要安装，后使用rpm安装软件  
 在线安装自动更新，可以自动安装所需依赖  
+对于安装软件可以使用dpkg apt安装，命令的使用可以配合命令 --help、man 命令  
+如  
+``` bash
+apt --help
+dpkg --help
+man apt
+```  
 # 一、 查看已安装程序的常用命令
 ## 1. 最常用：apt list --installed（查所有 apt 安装的软件）  
 这个命令专门列出通过 apt/apt-get 安装的包，输出清晰，带版本号：
