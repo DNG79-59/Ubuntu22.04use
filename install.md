@@ -1,3 +1,75 @@
+rpm需要安装，后使用rpm安装软件  
+在线安装自动更新，可以自动安装所需依赖  
+# 一、 查看已安装程序的常用命令
+## 1. 最常用：apt list --installed（查所有 apt 安装的软件）  
+这个命令专门列出通过 apt/apt-get 安装的包，输出清晰，带版本号：
+```bash 查看所有已安装包
+apt list --installed
+```  
+```bash 过滤特定包（比如查 nginx 是否安装）
+apt list --installed | grep nginx
+```  
+## 2. 传统命令：dpkg -l（查所有 dpkg 管理的包，包括手动装的 deb 包）  
+dpkg 是底层包管理器，不管是 apt 装的还是手动装的 deb 包，都能查到：  
+```bash 看所有已安装包（输出格式：状态+包名+版本+描述）
+dpkg -l
+```  
+```bash 过滤特定包（比如查 unzip）
+dpkg -l | grep unzip
+```  
+## 3. 查单个包的详细信息：apt show 包名
+如果想知道某个已安装包的用途、依赖、安装时间，用这个：  
+```bash 比如查 nginx 的详细信息
+apt show nginx
+```
+## 4. 查软件安装路径：which 命令名
+适合查可执行程序的位置（比如知道 python3 装在哪）：
+```bash 比如查 docker 命令的路径
+which docker
+```
+## 查更详细的路径（包括软链接）
+```
+whereis docker
+```  
+# 二、 卸载软件的常用命令
+## 1. 普通卸载（保留配置文件）：sudo apt remove 包名
+适合临时卸载，以后重装还能复用配置，比如：
+```bash 卸载 nginx，保留配置文件
+sudo apt remove nginx
+```
+## 2. 彻底卸载（删除配置文件）：sudo apt purge 包名
+运维常用！彻底清除软件的所有文件（包括 /etc 下的配置），比如：
+```bash
+sudo apt purge nginx
+```
+## 3. 清理残留依赖：sudo apt autoremove
+卸载软件后，会留下一些 “没用的依赖包”，用这个命令一键清理：
+```bash 清理系统中所有未被使用的依赖
+sudo apt autoremove
+```  
+## 4. 手动卸载 deb 包：sudo dpkg -r 包名
+如果是手动下载 deb 包安装的，用 dpkg 卸载：
+```bash 普通卸载（保留配置）
+sudo dpkg -r unzip
+```  
+# 彻底卸载（删除配置）
+`sudo dpkg -P unzip`
+# 三、 高频组合用法（直接抄）
+查是否安装 → 确认后卸载 → 清理残留
+```bash 1. 查 nginx 是否安装
+apt list --installed | grep nginx
+# 2. 彻底卸载
+sudo apt purge nginx
+# 3. 清理依赖
+sudo apt autoremove
+```  
+## 卸载后想重装（保留配置）
+```bash
+sudo apt remove nginx && sudo apt install nginx
+```
+## 卸载后想彻底重装（删配置）
+```bash
+sudo apt purge nginx && sudo apt autoremove && sudo apt install nginx
 ```  
 小提示
 卸载软件时一定要加 sudo，否则会提示权限不足；
@@ -63,10 +135,10 @@ whereis 软件名
 # 5. 判断是否为二进制解压安装
 部分软件提供免编译的二进制包（如.tar.gz格式），解压后直接运行，这类软件无任何包管理记录，只能通过路径和文件特征判断：  
 查看自定义安装目录  
-这类软件通常会被解压到/opt~/Opt/or user-defined folders, such as decompressed jdk, nodejs, etc., execute:
+这类软件通常会被解压到/opt/、~/opt/或用户自定义文件夹，比如解压后的jdk、nodejs等，执行：
 ```bash
 Ls/opt | grep software name
 Ls~/opt | grep software name
 ```  
-Confirm no package management records
-If the software cannot be found in the apt list - installed, dpkg - l, or snap list, but the executable file can be found by the software name and the path is in the custom directory mentioned above, it is a binary decompression installation.
+确认无包管理记录  
+若apt list --installed、dpkg -l、snap list都查不到该软件，但能通过which 软件名找到可执行文件，且路径在上述自定义目录，就是二进制解压安装的。
