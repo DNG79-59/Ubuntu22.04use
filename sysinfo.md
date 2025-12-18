@@ -24,6 +24,8 @@ ps -ef | grep ngnix
 kill -9 (进程id)
 killall -9 ngnix
 ```
+killall需安装psmisc
+
 
 ### netstat 查看进程网络
 `netstat -tnlp`
