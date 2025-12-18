@@ -1,5 +1,11 @@
 ### top 动态资源查看
 <img width="1581" height="475" alt="image" src="https://github.com/user-attachments/assets/b33ded85-bde4-4e4c-9411-6e931112b018" />
+```
+top -p 13699
+```
+top中输入r再输入进程id，再输入进程优先级
+renice 优先级数字 进程ID
+nice也可以调整，
 
 ### free 内存情况查看
 ```bash
