@@ -22,13 +22,13 @@ free -s (时间间隔)
 ```bash
 ps -a
 ps -e
-ps -ef | grep ngnix
+ps -ef | grep nginx
 ```
 
 ### kill 停止进程
 ```
 kill -9 (进程id)
-killall -9 ngnix
+killall -9 nginx
 ```
 killall需安装psmisc
 
