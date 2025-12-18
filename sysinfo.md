@@ -20,5 +20,12 @@ ps -ef | grep ngnix
 ```
 
 ### kill 停止进程
-`kill -9 (进程id)`
+```
+kill -9 (进程id)
+killall -9 ngnix
+```
+
+### netstat 查看进程网络
+`netstat -tnlp`
+<img width="1583" height="389" alt="image" src="https://github.com/user-attachments/assets/0e5d5036-ac94-458d-98f6-6d7d68d1775e" />
 
