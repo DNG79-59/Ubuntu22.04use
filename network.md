@@ -1,3 +1,22 @@
+# shell命令
+```shell
+#!/bin/bath
+cat > /etc/netplan/01-network-manager-all.yaml << EOF
+# Let NetworkManager manage all devices on this system
+network:
+ version: 2
+ renderer: NetworkManager
+ ethernets:
+   eth0:
+     dhcp4: no
+     addresses: [172.23.207.254/20] # 静态IP地址，可改为自己想要的
+     gateway4: 192.168.1.1 # 网关地址
+     nameservers:
+         addresses: [8.8.8.8,8.8.8.4] # 两个DNS地址
+EOF
+
+sudo netplan try
+```
 # 静态ip配置
 对我的网络来说，当前的适配器是eth0。你的系统可能与此不同  
 Netplan是最新版 Ubuntu 的默认网络管理工具。Netplan 的配置文件使用 YAML 编写，扩展名为.yaml。
@@ -14,7 +33,6 @@ ls进入/etc/netplan目录。
 ```
 network:
  version: 2
-01-network-manager-all.yaml
 ```
 Netplan 配置文件的顶层节点是一个network:映射，其中包含 version:2（表示使用网络定义版本 2）。
 
