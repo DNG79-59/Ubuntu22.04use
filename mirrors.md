@@ -1,4 +1,58 @@
 # //除了下面的方法，可以通过搜索阿里云镜像站，然后点击对应的系统，相关仓库，然后有简略的步骤！
+# 当然我也做了一个shell命令
+```shell
+sudo bash -c '
+cp /etc/apt/sources.list /etc/apt/sources.list.old
+sed -i "s@http://.*archive.ubuntu.com@https://mirrors.aliyun.com/@g" /etc/apt/sources.list
+sed -i "s@https://.*security.ubuntu.com@https://mirrors.aliyun.com/@g" /etc/apt/sources.list
+apt-get update
+'
+```
+```
+#!/bin/bash
+# 功能：Ubuntu系统apt源替换为阿里云镜像源（自动备份+完整替换+容错）
+# 适用：Ubuntu 18.04/20.04/22.04 等主流版本
+
+# 定义目标文件和镜像源地址
+SOURCE_FILE="/etc/apt/sources.list"
+ALIYUN_MIRROR="https://mirrors.aliyun.com/"
+
+# 1. 提权检查（非root则自动sudo）
+if [ "$(id -u)" -ne 0 ]; then
+    echo "请以root权限执行，自动尝试sudo提权..."
+    exec sudo bash -c "$(cat "$0")" "$@"
+    exit 1
+fi
+
+# 2. 备份原有配置（若文件存在则备份，避免覆盖）
+if [ -f "$SOURCE_FILE" ]; then
+    cp -f "$SOURCE_FILE" "${SOURCE_FILE}.old"
+    echo "✅ 已备份原有源配置至 ${SOURCE_FILE}.old"
+else
+    echo "⚠️  未找到 ${SOURCE_FILE}，将创建新文件"
+    touch "$SOURCE_FILE"
+fi
+
+# 3. 批量替换源地址（兼容http/https开头的archive/security源）
+# 替换archive.ubuntu.com（主源）
+sed -i "s@http://.*archive.ubuntu.com@${ALIYUN_MIRROR}@g" "$SOURCE_FILE"
+sed -i "s@https://.*archive.ubuntu.com@${ALIYUN_MIRROR}@g" "$SOURCE_FILE"
+
+# 替换security.ubuntu.com（安全更新源）
+sed -i "s@http://.*security.ubuntu.com@${ALIYUN_MIRROR}@g" "$SOURCE_FILE"
+sed -i "s@https://.*security.ubuntu.com@${ALIYUN_MIRROR}@g" "$SOURCE_FILE"
+
+echo "✅ 已将apt源替换为阿里云镜像源"
+
+# 4. 刷新源缓存（带错误提示）
+echo "🔄 正在刷新apt源缓存..."
+if apt-get update; then
+    echo "🎉 源替换并刷新完成！"
+else
+    echo "❌ 源缓存刷新失败，请检查源配置是否正确！"
+    exit 1
+fi
+```
 ## 1.备份源文件
 通过以下命令对官方源的配置文件进行备份  
 ```ssh
