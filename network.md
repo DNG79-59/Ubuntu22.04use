@@ -1,6 +1,8 @@
 # shell命令
 ```shell
-sudo bash -c 'cat > /etc/netplan/01-network-manager-all.yaml << EOF
+sudo bash -c '
+sudo cp /etc/netplan/01-network-manager-all.yaml /etc/netplan/01-network-manager-all.yaml.bak # 备份旧的配置
+cat > /etc/netplan/01-network-manager-all.yaml << EOF
 # Let NetworkManager manage all devices on this system
 network:
  version: 2
@@ -9,18 +11,15 @@ network:
    eth33: # 网卡名称，不能搞错，可以事先通过ip addr查看网卡
      dhcp4: no
      addresses: [192.168.30.101/24] # 静态IP地址，可改为自己想要的
-     gateway4: 192.168.30.1 # 网关地址
+     routes:
+       - to: 0.0.0.0/0
+         via: 192.168.30.2 # 网关地址
      nameservers:
-         addresses: [223.6.6.6,192.168.30.1] # 两个DNS地址
-EOF'
+         addresses: [223.6.6.6,192.168.30.2] # 两个DNS地址
+EOF
+netplan try # 测试配置文件并询问是否应用
+'
 ```
-然后跳转第四步  
-第 4 步：应用并测试更改  
-在永久应用更改之前，我们可以先使用该命令测试更改：  
-```
-sudo netplan try
-```
-如果没有错误，它会询问你是否要应用这些设置。
 
 # 静态ip配置
 对我的网络来说，当前的适配器是eth0。你的系统可能与此不同  
