@@ -155,6 +155,7 @@ systemctl restart docker
 '
 ```
 ## 当然一般无法使用，这个需要自己在控制台添加镜像（暂时没有研究这个），下面是另一种方法
+```
 sudo bash -c '
 # 定义要测试的镜像源列表 可以自己添加或修改
 MIRROR_LIST=(
@@ -228,6 +229,28 @@ green_echo "========================================"
 green_echo "📌 最终配置已生效，当前镜像源："
 docker info | grep -A 2 "Registry Mirrors" | grep -v "Registry Mirrors" | tr -d ' \t'
 '
+```
+# 测试镜像下载
+构建Web程序镜像。
+
+```
+#拉取Nginx镜像
+sudo docker pull nginx:latest
+# 创建Dockerfile设置Nginx作为基础镜像，并在Web服务器的根目录创建一个显示Hello World!的index.html文件。
+sudo tee Dockerfile <<-'EOF'
+FROM nginx:latest
+RUN echo 'Hello World!' > /usr/share/nginx/html/index.html
+EOF
+# 构建镜像，镜像名称为hello-world
+sudo docker build . -t hello-world:latest
+# 使用Web应用镜像启动名为hello-world的容器。
+sudo docker run -d -p 80:80 --name hello-world hello-world:latest
+```
+执行curl http://localhost命令，验证Web程序是否正确显示Hello World!。  
+```
+curl http://localhost
+```
+
 # Docker配置非root用户权限
 默认情况下，Docker命令需要root权限（即使用sudo）。为了避免每次都输入sudo并遵循最小权限原则，应将当前用户添加到docker用户组。
 
