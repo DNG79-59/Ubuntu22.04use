@@ -246,7 +246,7 @@ sudo docker build . -t hello-world:latest
 # 使用Web应用镜像启动名为hello-world的容器。
 sudo docker run -d -p 80:80 --name hello-world hello-world:latest
 ```
-执行curl http://localhost命令，验证Web程序是否正确显示Hello World!。  
+# 执行`curl http://localhost`命令，验证Web程序是否正确显示Hello World!。  
 ```
 curl http://localhost
 ```
@@ -259,7 +259,8 @@ curl http://localhost
 sudo usermod -aG docker $USER
 # 方式1：退出当前终端，重新登录（最稳妥）
 exit  # 退出后重新ssh/打开终端
-
+```
+```
 # 方式2：刷新当前会话的用户组（临时生效，仅当前终端）
 newgrp docker
 ```
