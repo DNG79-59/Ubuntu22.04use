@@ -154,3 +154,90 @@ EOF
 systemctl restart docker
 '
 ```
+## 当然一般无法使用，这个需要自己在控制台添加镜像（暂时没有研究这个），下面是另一种方法
+sudo bash -c '
+# 定义要测试的镜像源列表 可以自己添加或修改
+MIRROR_LIST=(
+  "https://docker.xuanyuan.me"
+  "https://docker.1ms.run"
+  "https://docker.m.daocloud.io"
+  "https://docker.hlmirror.com"
+  "https://dockerpull.pw"
+)
+
+# 临时文件存储可用地址
+AVAILABLE_MIRRORS=$(mktemp)
+echo -n "[" > $AVAILABLE_MIRRORS
+
+# 批量测试每个镜像源
+green_echo() { echo -e "\033[32m$1\033[0m"; }
+red_echo() { echo -e "\033[31m$1\033[0m"; }
+yellow_echo() { echo -e "\033[33m$1\033[0m"; }
+
+green_echo "========================================"
+green_echo "🔍 开始批量测试镜像源..."
+FIRST_OK=1
+for url in "${MIRROR_LIST[@]}"; do
+  echo -n "测试 $url ... "
+  # 临时替换配置并测试
+  TEMP_CONFIG=$(mktemp)
+  echo "{\"registry-mirrors\":[\"$url\"]}" > $TEMP_CONFIG
+  sudo cp $TEMP_CONFIG /etc/docker/daemon.json
+  sudo systemctl restart docker >/dev/null 2>&1
+  
+  # 测试拉取hello-world
+  if docker pull hello-world >/dev/null 2>&1; then
+    green_echo "OK"
+    # 收集可用地址（处理逗号分隔）
+    if [ $FIRST_OK -eq 1 ]; then
+      echo -n "\"$url\"" >> $AVAILABLE_MIRRORS
+      FIRST_OK=0
+    else
+      echo -n ",\"$url\"" >> $AVAILABLE_MIRRORS
+    fi
+  else
+    red_echo "FAIL"
+  fi
+  rm -f $TEMP_CONFIG
+done
+
+# 完成JSON格式
+echo "]" >> $AVAILABLE_MIRRORS
+AVAILABLE_CONTENT=$(cat $AVAILABLE_MIRRORS)
+rm -f $AVAILABLE_MIRRORS
+
+# 处理无可用地址的情况
+if [ "$AVAILABLE_CONTENT" = "[]" ]; then
+  red_echo "========================================"
+  red_echo "❌ 所有镜像源测试失败！请检查网络或更换镜像源列表"
+  # 恢复默认配置（清空registry-mirrors）
+  echo "{}" | sudo tee /etc/docker/daemon.json >/dev/null
+  sudo systemctl restart docker
+  exit 1
+fi
+
+# 写入可用地址到daemon.json（标准化JSON）
+green_echo "========================================"
+green_echo "✅ 测试完成，可用镜像源：$AVAILABLE_CONTENT"
+echo "{\"registry-mirrors\":$AVAILABLE_CONTENT}" | sudo tee /etc/docker/daemon.json >/dev/null
+
+# 重启Docker并验证
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+green_echo "========================================"
+green_echo "📌 最终配置已生效，当前镜像源："
+docker info | grep -A 2 "Registry Mirrors" | grep -v "Registry Mirrors" | tr -d ' \t'
+'
+# Docker配置非root用户权限
+默认情况下，Docker命令需要root权限（即使用sudo）。为了避免每次都输入sudo并遵循最小权限原则，应将当前用户添加到docker用户组。
+
+```
+# 将当前用户添加到docker组。
+sudo usermod -aG docker $USER
+# 方式1：退出当前终端，重新登录（最稳妥）
+exit  # 退出后重新ssh/打开终端
+
+# 方式2：刷新当前会话的用户组（临时生效，仅当前终端）
+newgrp docker
+```
+执行newgrp docker命令生效后。直接使用docker命令，无需添加sudo。
