@@ -19,6 +19,9 @@ NAME=ens33
 DEVICE=ens33
 NM_CONTROLLED=no
 ```
+## 重启网络
+`systemctl restart network`
+
 # 接来下配置他的镜像源[原文地址](https://www.cnblogs.com/lvzhenjiang/articles/18350828)
 ### 确定/etc/yum.repos.d/目录中的源配置没用，也可以将/etc/yum.repos.d/目录清空
 `rm -f /etc/yum.repos.d/*`
