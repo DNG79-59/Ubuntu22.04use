@@ -44,8 +44,27 @@ Apr 09 14:30:00 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
 ```  
 您可以看到 Active: active (running)，表示 SSH 服务器正在运行。
 
-
-
+## 对于大多数现代 Linux 系统 (Ubuntu, CentOS, Debian, RHEL 7+):
+启动服务：
+```
+sudo systemctl start ssh
+```
+检查状态：
+```sudo systemctl status ssh
+```
+设置开机自启：
+```
+sudo systemctl enable ssh
+```
+对于旧版 Linux 系统:
+```
+# 启动服务
+sudo service ssh start
+```
+```
+# 或者：
+sudo /etc/init.d/ssh start 
+```
 步骤 4：配置 SSH 服务器（可选）
 默认情况下，OpenSSH 服务器的配置文件位于 /etc/ssh/sshd_config。您可以根据需要修改此文件来进行自定义配置。例如，您可以更改 SSH 服务器的监听端口、允许或禁止密码登录、限制登录用户等。
 
