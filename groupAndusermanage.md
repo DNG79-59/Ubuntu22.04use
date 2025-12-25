@@ -70,4 +70,24 @@ sudo usermod -aG opt-gp opt-user
 用户opt-user重新连接终端即可生效
 <img width="818" height="216" alt="image" src="https://github.com/user-attachments/assets/d77cb599-c496-4942-a717-47bb65be0b52" />
 
+
+
 # 同时记录一下更精细的权限配置ACL
+### 单条规则，如配置某个人opt-user对opt目录下的rx权限，这样的规则可以使用于多种情况，比如a、b需要读取和执行，d、c需要读写执行
+参数解释，-R 代表递归，子目录下所有都符合这个要求，-d是该目录下新文件的授权格式，-m是修改acl
+```
+sudo setfacl -R -d -m u:opt-user:rx /opt
+```
+### 也有适用于多个组的形式的acl控制，类似于传统的linux系统的三位中的组
+创建acl组
+```
+sudo groupadd opt-gp
+```
+对acl组授权，同user授权
+```
+sudo setfacl -R -d -m g:opt-gp:rx /opt
+```
+添加acl组成员
+```
+sudo usermod -aG opt-gp opt-user
+```
