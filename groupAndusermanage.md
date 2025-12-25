@@ -74,7 +74,7 @@ sudo usermod -aG opt-gp opt-user
 
 # 同时记录一下更精细的权限配置ACL
 ### 单条规则，如配置某个人opt-user对opt目录下的rx权限，这样的规则可以使用于多种情况，比如a、b需要读取和执行，d、c需要读写执行，该文件的拥有者又是root等其他人
-参数解释，-R 代表递归，子目录下所有都符合这个要求，-d是该目录下新文件的授权格式，-m是修改acl
+参数解释，-R 代表递归，子目录下所有都符合这个要求，-d是该目录下新文件的规则继承，-m是修改acl
 ```
 sudo setfacl -R -d -m u:opt-user:rx /opt
 ```
@@ -91,3 +91,21 @@ sudo setfacl -R -d -m g:opt-gp:rx /opt
 ```
 sudo usermod -aG opt-gp opt-user
 ```
+### 删除acl规则
+删除用户规则
+```
+sudo setfacl -R -x u:opt-user /opt
+```
+删除组的就是p:opt-gp /opt
+### 查看当前acl配置
+```
+sudo getfacl /opt
+```
+<img width="774" height="444" alt="image" src="https://github.com/user-attachments/assets/dba96a54-dde3-4f48-859e-43d1b951aa4b" />
+
+### 新文件不继承
+使用 setfacl 命令删除目录的默认权限：
+```
+sudo setfacl -b /path/to/directory
+```
+这个命令将移除目录的所有 ACL 规则，包括默认设置。
