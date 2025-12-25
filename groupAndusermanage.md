@@ -73,7 +73,7 @@ sudo usermod -aG opt-gp opt-user
 
 
 # 同时记录一下更精细的权限配置ACL
-### 单条规则，如配置某个人opt-user对opt目录下的rx权限，这样的规则可以使用于多种情况，比如a、b需要读取和执行，d、c需要读写执行
+### 单条规则，如配置某个人opt-user对opt目录下的rx权限，这样的规则可以使用于多种情况，比如a、b需要读取和执行，d、c需要读写执行，该文件的拥有者又是root等其他人
 参数解释，-R 代表递归，子目录下所有都符合这个要求，-d是该目录下新文件的授权格式，-m是修改acl
 ```
 sudo setfacl -R -d -m u:opt-user:rx /opt
