@@ -34,6 +34,10 @@ getent group test
 ```
 groups test01
 ```
+### 删除组 
+```
+sudo groupdel groupname
+```
 ### 查询文件的组通过`ls -al`看第二个列
 
 # 在这里记录一个管理用户组访问文件的授权过程
@@ -66,3 +70,4 @@ sudo usermod -aG opt-gp opt-user
 用户opt-user重新连接终端即可生效
 <img width="818" height="216" alt="image" src="https://github.com/user-attachments/assets/d77cb599-c496-4942-a717-47bb65be0b52" />
 
+# 同时记录一下更精细的权限配置ACL
