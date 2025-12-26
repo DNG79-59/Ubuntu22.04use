@@ -115,3 +115,12 @@ sudo getfacl /opt
 sudo setfacl -b /path/to/directory
 ```
 这个命令将移除目录的所有 ACL 规则，包括默认设置。
+
+# 还有另一种添加权限的方式
+使用sudoer文件，在文件中添加内容，比如opt-user对文件opt的ls命令
+```
+sudo vi /etc/sudoers # 可以使用vi编辑器G直接跳到尾行
+# 在尾行添加内容
+opt-user ALL=(ALL) /usr/bin/ls /opt
+```
+添加后opt-user使用`sudo ls /opt`即可
