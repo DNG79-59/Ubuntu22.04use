@@ -74,6 +74,12 @@ sudo usermod -aG opt-gp opt-user
 
 # 同时记录一下更精细的权限配置ACL
 ### 单条规则，如配置某个人opt-user对opt目录下的rx权限，这样的规则可以使用于多种情况，比如a、b需要读取和执行，d、c需要读写执行，该文件的拥有者又是root等其他人
+在使用高级acl前，需要将传统的控制改一下  
+将属主设为 root，权限设为仅 root 可读写，清空 group 和 others 的权限
+```
+sudo chown root:root deploy.sh
+sudo chmod 600 deploy.sh
+```
 参数解释，-R 代表递归，子目录下所有都符合这个要求，-d是该目录下新文件的规则继承，-m是修改acl
 ```
 sudo setfacl -R -d -m u:opt-user:rx /opt
@@ -103,7 +109,7 @@ sudo getfacl /opt
 ```
 <img width="774" height="444" alt="image" src="https://github.com/user-attachments/assets/dba96a54-dde3-4f48-859e-43d1b951aa4b" />
 
-### 新文件不继承
+### 新文件一般是跟着上级目录的acl、如果单独设置了新文件的acl，可以使用setfacl -b删除新文件所有的acl，再对他的父级做acl，以便继承，或者再单独设置acl
 使用 setfacl 命令删除目录的默认权限：
 ```
 sudo setfacl -b /path/to/directory
