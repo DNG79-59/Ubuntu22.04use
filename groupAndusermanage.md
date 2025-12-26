@@ -31,6 +31,10 @@ sudo groupadd test
 ```
 getent group test
 ```
+### 删除组下成员
+```
+sudo gpasswd -d opt-user opt-gp
+```
 ### 查询test01用户所属的组
 ```
 groups test01
