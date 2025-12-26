@@ -15,7 +15,8 @@ sudo usermod -aG root test01
 ```
 sudo deluser test01
 ```
-### 这里我们传入标准的 UID 范围，通常普通用户的 UID 从 1000 开始：
+### 查询所有用户
+这里我们传入标准的 UID 范围，通常普通用户的 UID 从 1000 开始：
 ```
 getent passwd | awk -F: '$3 >= 1000 {print $1}'
 ```
